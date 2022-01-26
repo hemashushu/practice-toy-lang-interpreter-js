@@ -1,0 +1,25 @@
+{
+    "name": "exercise-interpreter-js",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "node test/test-all.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hemashushu/exercise-interpreter-js.git"
+    },
+    "author": "Hemashushu <hippospark@gmail.com>",
+    "keywords": [
+        "interpreter"
+    ],
+    "license": "MPL-2.0",
+    "dependencies": {},
+    "devDependencies": {},
+    "bugs": {
+        "url": "https://github.com/hemashushu/exercise-interpreter-js/issues"
+    },
+    "homepage": "https://github.com/hemashushu/exercise-interpreter-js#readme"
+}
