@@ -6,12 +6,19 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { strict as assert } from 'assert';
+import { Parser } from '../src/parser.js';
 
-function testLex() {
-    assert.ok(true);
-    console.log('testLex() passed.');
+class Evaluator {
+
+    eval() {
+        const parser = new Parser();
+        const ast = parser.parse(`
+            555;
+        `);
+
+        console.log(JSON.stringify(ast, undefined, '  '));
+    }
+
 }
 
-
-export { testLex };
+export { Evaluator };

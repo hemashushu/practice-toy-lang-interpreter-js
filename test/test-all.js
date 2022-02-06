@@ -6,10 +6,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { testLex } from './test-lex.js';
+import { testParser } from './test-parser.js';
 
 (() => {
-    testLex();
+    testParser();
 
-    console.log('All passed.');
+    console.log('all passed.');
 })();

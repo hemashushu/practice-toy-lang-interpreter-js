@@ -6,3 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+import { Evaluator } from "./src/evaluator.js";
+
+const e = new Evaluator();
+e.eval();
