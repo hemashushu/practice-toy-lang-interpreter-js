@@ -13,7 +13,12 @@ class Evaluator {
     eval() {
         const parser = new Parser();
         const ast = parser.parse(`
-            555;
+            // let x;
+            // let y = 1;
+            // let a, b;
+            // let m, n = 2;
+            //let z = x+1;
+            let f = b= 10;
         `);
 
         console.log(JSON.stringify(ast, undefined, '  '));

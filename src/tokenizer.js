@@ -17,17 +17,38 @@ const Spec = [
     [/^\s+/, null],
 
     // Comments
-    [/^\/\/.*/, null],              // "//..."
-    [/^\/\*[\s\S]*?\*\//, null],    // "/*...*/"
+    [/^\/\/.*/, null],              // single line comment "//..."
+    [/^\/\*[\s\S]*?\*\//, null],    // multi line comment "/*...*/"
 
     // Symbols, delimiters
-    [/^;/, ';'],
+    [/^;/, ';'],        // ;
+    [/^{/, '{'],        // {
+    [/^}/, '}'],        // }
+    [/^\(/, '('],       // (
+    [/^\)/, ')'],       // )
+
+    [/^,/, ','],        // ,
+
+    // Assignment operators
+    [/^=/, 'SIMPLE_ASSIGN'],
+    [/^[*/+-]=/, 'COMPLEX_ASSIGN'],
+
+    // Operators
+    [/^[+-]/, 'ADDITIVE_OPERATOR'],         // + -
+    [/^[*\/]/, 'MULTIPLICATIVE_OPERATOR'],  // * /
+
+    // Keywords
+    [/^\blet\b/, 'let'],        // let
 
     // Number
     [/^\d[\d.e_-]*/, 'NUMBER'],
 
     // String
-    [/^".*?(?<!\\)"/, 'STRING']
+    [/^".*?(?<!\\)"/, 'STRING'],
+
+    // Identifiers
+    [/^\w+/, 'IDENTIFIER'],
+
 ];
 
 class Tokenizer {

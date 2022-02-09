@@ -9,11 +9,21 @@
 import { testLiteral } from './test-literal.js';
 import { testWhitespace } from './test-whitespace.js';
 import { testComment } from './test-comment.js';
+import { testStatement } from './test-statement.js';
+import { testBlockStatement } from './test-blockstatement.js';
+import { testBinaryExpression } from './test-binaryexpression.js';
+import { testAssignmentExpression } from './test-assignment.js';
+import { testDeclarationStatement } from './test-declaration.js';
 
 function testParser() {
     testLiteral();
     testWhitespace();
     testComment();
+    testStatement();
+    testBlockStatement();
+    testBinaryExpression();
+    testAssignmentExpression();
+    testDeclarationStatement();
 
     console.log('testParser() passed.');
 }
