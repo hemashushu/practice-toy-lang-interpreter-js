@@ -8,13 +8,16 @@
 
 import { strict as assert } from 'assert';
 
-import { Parser } from '../src/parser.js';
+import { Parser } from '../../src/parser.js';
 
-function testSingleStatement() {
+function testSingleLineComment() {
     let parser = new Parser();
 
     assert.deepEqual(parser.parse(
-        `555;`), {
+        `
+        // comment 1
+        555; // comment 2
+        `), {
         type: 'Program',
         body: [{
             type: 'ExpressionStatement',
@@ -26,38 +29,32 @@ function testSingleStatement() {
     });
 }
 
-function testMultiStatements() {
+function testMultiLineComment() {
     let parser = new Parser();
 
     assert.deepEqual(parser.parse(
         `
-        "hello";
-        123;
+        /**
+         * comment
+         */
+        555 /* "also comment" */ ;
         `), {
         type: 'Program',
-        body: [
-            {
-                type: 'ExpressionStatement',
-                expression: {
-                    type: 'StringLiteral',
-                    value: "hello"
-                }
-            },
-            {
-                type: 'ExpressionStatement',
-                expression: {
-                    type: 'NumericLiteral',
-                    value: 123
-                }
-            }]
+        body: [{
+            type: 'ExpressionStatement',
+            expression: {
+                type: 'NumericLiteral',
+                value: 555
+            }
+        }]
     });
 }
 
-function testStatement() {
-    testSingleStatement();
-    testMultiStatements();
+function testComment() {
+    testSingleLineComment();
+    testMultiLineComment();
 
-    console.log('testStatement() passed.');
+    console.log('testComment() passed.');
 }
 
-export { testStatement };
+export { testComment };

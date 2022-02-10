@@ -6,14 +6,22 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { testLiteral } from './test-literal.js';
-import { testWhitespace } from './test-whitespace.js';
-import { testComment } from './test-comment.js';
-import { testStatement } from './test-statement.js';
-import { testBlockStatement } from './test-blockstatement.js';
-import { testBinaryExpression } from './test-binaryexpression.js';
-import { testAssignmentExpression } from './test-assignment.js';
-import { testDeclarationStatement } from './test-declaration.js';
+import { testLiteral } from './parser/test-literal.js';
+import { testWhitespace } from './parser/test-whitespace.js';
+import { testComment } from './parser/test-comment.js';
+import { testStatement } from './parser/test-statement.js';
+import { testBlockStatement } from './parser/test-blockstatement.js';
+import { testBinaryExpression } from './parser/test-binaryexpression.js';
+import { testAssignmentExpression } from './parser/test-assignment.js';
+import { testDeclarationStatement } from './parser/test-declaration.js';
+import { testIfStatement } from './parser/test-if-statement.js';
+import { testRelational } from './parser/test-relational.js';
+import { testEquality } from './parser/test-equality.js';
+import { testLogical } from './parser/test-logical.js';
+import { testUnary } from './parser/test-unary.js';
+import { testIteration } from './parser/test-iteration.js';
+import { testFunctionDeclaration } from './parser/test-function-declaration.js';
+import { testMember } from './parser/test-member.js';
 
 function testParser() {
     testLiteral();
@@ -24,6 +32,14 @@ function testParser() {
     testBinaryExpression();
     testAssignmentExpression();
     testDeclarationStatement();
+    testIfStatement();
+    testRelational();
+    testEquality();
+    testLogical();
+    testUnary();
+    testIteration();
+    testFunctionDeclaration();
+    testMember();
 
     console.log('testParser() passed.');
 }

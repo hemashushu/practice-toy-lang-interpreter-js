@@ -8,7 +8,7 @@
 
 import { strict as assert } from 'assert';
 
-import { Parser } from '../src/parser.js';
+import { Parser } from '../../src/parser.js';
 
 function testNumericLiteral() {
     let parser = new Parser();

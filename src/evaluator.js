@@ -6,22 +6,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { Parser } from '../src/parser.js';
+import { Parser } from './parser.js';
 
 class Evaluator {
 
     eval() {
         const parser = new Parser();
         const ast = parser.parse(`
-            // let x;
-            // let y = 1;
-            // let a, b;
-            // let m, n = 2;
-            //let z = x+1;
-            let f = b= 10;
+            x.y[0].z;
         `);
 
-        console.log(JSON.stringify(ast, undefined, '  '));
+        console.log(JSON.stringify(ast, undefined, 2));
     }
 
 }

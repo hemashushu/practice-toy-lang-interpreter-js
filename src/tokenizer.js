@@ -20,25 +20,52 @@ const Spec = [
     [/^\/\/.*/, null],              // single line comment "//..."
     [/^\/\*[\s\S]*?\*\//, null],    // multi line comment "/*...*/"
 
+    // Logical operators
+    [/^&&/,'LOGICAL_AND'],                  // &&
+    [/^\|\|/,'LOGICAL_OR'],                 // ||
+
+    // Equality operators
+    [/^[!=]=/, 'EQUALITY_OPERATOR'],        // ==, !=
+
+    // Relational operators
+    [/^[><]=?/, 'RELATIONAL_OPERATOR'],     // >= <= > <
+
+    // Assignment operators
+    [/^[*/+-]=/, 'COMPLEX_ASSIGN'],         // +=, -=, *=, /=
+    [/^=/, 'SIMPLE_ASSIGN'],                // =
+
+    // Math operators
+    [/^[+-]/, 'ADDITIVE_OPERATOR'],         // + -
+    [/^[*\/]/, 'MULTIPLICATIVE_OPERATOR'],  // * /
+
+    // Unary operators
+    [/^!/,'LOGICAL_NOT'],                   // "!"
+
     // Symbols, delimiters
     [/^;/, ';'],        // ;
     [/^{/, '{'],        // {
     [/^}/, '}'],        // }
     [/^\(/, '('],       // (
     [/^\)/, ')'],       // )
+    [/^\[/, '['],       // [
+    [/^\]/, ']'],       // ]
 
     [/^,/, ','],        // ,
-
-    // Assignment operators
-    [/^=/, 'SIMPLE_ASSIGN'],
-    [/^[*/+-]=/, 'COMPLEX_ASSIGN'],
-
-    // Operators
-    [/^[+-]/, 'ADDITIVE_OPERATOR'],         // + -
-    [/^[*\/]/, 'MULTIPLICATIVE_OPERATOR'],  // * /
+    [/^\./, '.'],       // .
 
     // Keywords
     [/^\blet\b/, 'let'],        // let
+    [/^\bif\b/, 'if'],          // if
+    [/^\belse\b/, 'else'],      // else
+    [/^\bwhile\b/,'while'],     // while
+    [/^\bdo\b/,'do'],           // do
+    [/^\bfor\b/,'for'],         // for
+    [/^\bdef\b/,'def'],         // def
+    [/^\breturn\b/,'return'],   // return
+
+    [/^\btrue\b/, 'TRUE'],      // true
+    [/^\bfalse\b/, 'FALSE'],    // false
+    [/^\bnull\b/, 'NULL'],      // null
 
     // Number
     [/^\d[\d.e_-]*/, 'NUMBER'],
