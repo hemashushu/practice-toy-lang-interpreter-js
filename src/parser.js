@@ -68,6 +68,7 @@ class Parser {
      *  | IterationStatement
      *  | FunctionDeclaration
      *  | ReturnStatement
+     *  | ClassDeclaration
      *  ;
      */
     Statement() {
@@ -397,14 +398,25 @@ class Parser {
     BlockStatement() {
         this._consume('{');
 
-        const body = this._lookahead.type === '}' ?
-            [] : this.StatementList('}');
+        if (this._lookahead.type === '}') {
+            // empty block statement
+            return this._EmptyBlockStatement();
+        }
 
+        const body = this.StatementList('}');
         this._consume('}');
 
         return {
             type: 'BlockStatement',
             body
+        };
+    }
+
+    _EmptyBlockStatement() {
+        this._consume('}');
+        return {
+            type: 'BlockStatement',
+            body: []
         };
     }
 
@@ -791,7 +803,9 @@ class Parser {
      * PrimaryExpression
      *  : Literal
      *  | ParenthesizedExpression
+     *  | Tuple
      *  | Identifier
+     *  | NewExpression
      *  ;
      */
     PrimaryExpression() {
@@ -801,7 +815,11 @@ class Parser {
 
         switch (this._lookahead.type) {
             case '(':
-                return this.ParenthesizedExpression();
+                return this.ParenthesizedOrTupleExpression();
+            case '[':
+                return this.ListExpression();
+            case '#{':
+                return this.MapExpression();
             case 'IDENTIFIER':
                 return this.Identifier();
             case 'new':
@@ -815,14 +833,20 @@ class Parser {
      *  ;
      */
     NewExpression() {
-        // new 操作符的优先级比 member 要高
+        // new 操作符的优先级
         //
+        // 1. new 的优先级比 member 要高。
         // new Foo.bar(1) -> new (Foo.bar)(1)
+        //
+        // 2. new ...()... 比 new ... 的优先级要高。
         // new Foo(1).bar(2) -> (new Foo(1)).bar(2)
         // new new Foo(1).bar(2) -> (new (new Foo(1)).bar)(2)
+        //
+        // 参考
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
 
         this._consume('new');
-        return  {
+        return {
             type: 'NewExpression',
             callee: this.MemberExpression(),
             arguments: this.Arguments()
@@ -854,13 +878,166 @@ class Parser {
      * ParenthesizedExpression
      *  : '(' Expression ')'
      *  ;
+     *
+     * TupleExpression
+     *  : '(' OptionalTupleElements ')'
+     *  ;
+     *
+     * TupleElements
+     *  : Expression OptionalComma
+     *  | TupleElements ',' Expression OptionalComma
+     *  ;
+     *
      */
-    ParenthesizedExpression() {
+    ParenthesizedOrTupleExpression() {
         this._consume('(');
-        const expression = this.Expression();
+
+        if (this._lookahead.type === ')') {
+            // empty tuple
+            return this._EmptyTuple();
+        }
+
+        const element = this.Expression();
+
+        if (this._lookahead.type === ',') {
+            return this._TupleExpression(element);
+        } else {
+            return this._ParenthesizedExpression(element);
+        }
+    }
+
+    _ParenthesizedExpression(firstElement) {
+        this._consume(')');
+        return firstElement;
+    }
+
+    _TupleExpression(firstElement) {
+        let elements = [];
+        elements.push(firstElement);
+
+        this._consume(',');
+
+        do {
+            // 用于允许最后一个元素后面带一个分隔符————逗号
+            if (this._lookahead.type === ')') {
+                break;
+            }
+
+            elements.push(this.Expression());
+        } while (this._lookahead.type === ',' && this._consume(','));
+
         this._consume(')');
 
-        return expression;
+        return {
+            type: 'Tuple',
+            elements
+        };
+    }
+
+    _EmptyTuple() {
+        this._consume(')');
+        return {
+            type: 'Tuple',
+            elements: []
+        };
+    }
+
+    /**
+     * ListExpression
+     *  : '[' OptionalListElements ']'
+     *  ;
+     *
+     * ListElements
+     *  : Expression OptionalComma
+     *  | ListElements ',' Expression OptionalComma
+     *  ;
+     */
+    ListExpression() {
+        let elements = [];
+
+        this._consume('[');
+
+        do {
+            // 用于允许最后一个元素后面带一个分隔符————逗号
+            if (this._lookahead.type === ']') {
+                break;
+            }
+
+            elements.push(this.Expression());
+        }while(this._lookahead.type === ',' && this._consume(','));
+
+        this._consume(']');
+
+        return {
+            type: 'List',
+            elements
+        };
+    }
+
+    /**
+     * MapExpression
+     *  : '{' OptionalMapEntries '}'
+     *  ;
+     *
+     * MapEntries
+     *  : MapEntry OptionalComma
+     *  | MapEntries ',' MapEntry OptionalComma
+     *  ;
+     */
+    MapExpression() {
+        // Map entry 即 Map key-vale pair
+        let entries = [];
+
+        this._consume('#{');
+
+        do {
+            // 用于允许最后一个元素后面带一个分隔符————逗号
+            if (this._lookahead.type === '}') {
+                break;
+            }
+
+            entries.push(this.MapEntry());
+        }while(this._lookahead.type === ',' && this._consume(','));
+
+        this._consume('}');
+
+        return {
+            type: 'Map',
+            entries
+        };
+    }
+
+    /**
+     * MapEntry
+     *  : MapKey ':' Expression
+     *  ;
+     */
+    MapEntry() {
+        const key = this.MapKey();
+        this._consume(':');
+        const value = this.Expression();
+
+        return {
+            type: 'MapEntry',
+            key,
+            value
+        };
+    }
+
+    /**
+     * MapKey
+     *  : Identifier
+     *  | StringLiteral
+     *  ;
+     */
+    MapKey() {
+        if (this._lookahead.type === 'IDENTIFIER') {
+            return this.Identifier();
+        }else if (this._lookahead.type === 'STRING') {
+            return this.StringLiteral();
+        }
+
+        throw new SyntaxError('Invalid map key type');
     }
 
     /**

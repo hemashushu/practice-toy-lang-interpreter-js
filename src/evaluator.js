@@ -10,16 +10,22 @@ import { Parser } from './parser.js';
 
 class Evaluator {
 
-    eval() {
+    devel() {
         const parser = new Parser();
         const ast = parser.parse(`
-            let p1 = new Point(1,2);
-            p1.calc();
+            #{a:b};
             `);
 
         console.log(JSON.stringify(ast, undefined, 2));
     }
 
+    evalFile(file) {
+        //
+    }
+
+    printFileAst(file) {
+        //
+    }
 }
 
 export { Evaluator };

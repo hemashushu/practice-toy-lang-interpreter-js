@@ -25,6 +25,9 @@ import { testMember } from './parser/test-member.js';
 import { testFunctionCall } from './parser/test-function-call.js';
 import { testClassDeclaration } from './parser/test-class-declaration.js';
 import { testNewCall } from './parser/test-new-call.js';
+import { testTuple } from './parser/test-tuple.js';
+import { testList } from './parser/test-list.js';
+import { testMap } from './parser/test-map.js';
 
 function testParser() {
     testLiteral();
@@ -46,8 +49,11 @@ function testParser() {
     testFunctionCall();
     testClassDeclaration();
     testNewCall();
+    testTuple();
+    testList();
+    testMap();
 
-    console.log('testParser() passed.');
+    console.log('parser test passed.');
 }
 
 export { testParser };

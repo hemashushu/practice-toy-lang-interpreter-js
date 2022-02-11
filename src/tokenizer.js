@@ -41,6 +41,9 @@ const Spec = [
     // Unary operators
     [/^!/,'LOGICAL_NOT'],                   // "!"
 
+    [/^#{/, '#{'],      // #{   // map start
+    [/^:/, ':'],        // :
+
     // Symbols, delimiters
     [/^;/, ';'],        // ;
     [/^{/, '{'],        // {

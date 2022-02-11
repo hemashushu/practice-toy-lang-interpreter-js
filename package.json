@@ -6,7 +6,8 @@
     "type": "module",
     "scripts": {
         "test": "node test/test.js",
-        "eval": "node index.js"
+        "eval": "node index.js",
+        "devel": "node index.js -- --devel"
     },
     "repository": {
         "type": "git",

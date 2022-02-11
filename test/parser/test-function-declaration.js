@@ -10,7 +10,7 @@ import { strict as assert } from 'assert';
 
 import { Parser } from '../../src/parser.js';
 
-function testSimpleFunctionDeclaration() {
+function testFunctionDeclaration() {
     let parser = new Parser();
 
     assert.deepEqual(parser.parse(
@@ -122,10 +122,6 @@ function testSimpleFunctionDeclaration() {
             ]
         }
     );
-}
-
-function testFunctionDeclaration() {
-    testSimpleFunctionDeclaration();
 
     console.log('testFunctionDeclaration() passed.');
 }
