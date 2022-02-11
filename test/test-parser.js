@@ -22,6 +22,9 @@ import { testUnary } from './parser/test-unary.js';
 import { testIteration } from './parser/test-iteration.js';
 import { testFunctionDeclaration } from './parser/test-function-declaration.js';
 import { testMember } from './parser/test-member.js';
+import { testFunctionCall } from './parser/test-function-call.js';
+import { testClassDeclaration } from './parser/test-class-declaration.js';
+import { testNewCall } from './parser/test-new-call.js';
 
 function testParser() {
     testLiteral();
@@ -38,8 +41,11 @@ function testParser() {
     testLogical();
     testUnary();
     testIteration();
-    testFunctionDeclaration();
     testMember();
+    testFunctionDeclaration();
+    testFunctionCall();
+    testClassDeclaration();
+    testNewCall();
 
     console.log('testParser() passed.');
 }

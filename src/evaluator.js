@@ -13,8 +13,9 @@ class Evaluator {
     eval() {
         const parser = new Parser();
         const ast = parser.parse(`
-            x.y[0].z;
-        `);
+            let p1 = new Point(1,2);
+            p1.calc();
+            `);
 
         console.log(JSON.stringify(ast, undefined, 2));
     }

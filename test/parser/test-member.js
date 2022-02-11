@@ -147,6 +147,150 @@ function testBracketMember() {
     );
 }
 
+function testNestedMember() {
+    let parser = new Parser();
+
+    assert.deepEqual(parser.parse(
+        `
+        a[b.c];
+        `),
+        {
+            "type": "Program",
+            "body": [
+                {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                        "type": "MemberExpression",
+                        "computed": true,
+                        "object": {
+                            "type": "Identifier",
+                            "name": "a"
+                        },
+                        "property": {
+                            "type": "MemberExpression",
+                            "computed": false,
+                            "object": {
+                                "type": "Identifier",
+                                "name": "b"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "c"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    );
+
+    assert.deepEqual(parser.parse(
+        `
+        x[y[z]];
+        `),
+        {
+            "type": "Program",
+            "body": [
+                {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                        "type": "MemberExpression",
+                        "computed": true,
+                        "object": {
+                            "type": "Identifier",
+                            "name": "x"
+                        },
+                        "property": {
+                            "type": "MemberExpression",
+                            "computed": true,
+                            "object": {
+                                "type": "Identifier",
+                                "name": "y"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "z"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    );
+}
+
+function testComplexObject() {
+    let parser = new Parser();
+
+    assert.deepEqual(parser.parse(
+        `
+        (x+y).length;
+        `),
+        {
+            "type": "Program",
+            "body": [
+                {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                        "type": "MemberExpression",
+                        "computed": false,
+                        "object": {
+                            "type": "BinaryExpression",
+                            "operator": "+",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "x"
+                            },
+                            "right": {
+                                "type": "Identifier",
+                                "name": "y"
+                            }
+                        },
+                        "property": {
+                            "type": "Identifier",
+                            "name": "length"
+                        }
+                    }
+                }
+            ]
+        }
+    );
+
+    assert.deepEqual(parser.parse(
+        `
+        (a+b)[2];
+        `),
+        {
+            "type": "Program",
+            "body": [
+                {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                        "type": "MemberExpression",
+                        "computed": true,
+                        "object": {
+                            "type": "BinaryExpression",
+                            "operator": "+",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "a"
+                            },
+                            "right": {
+                                "type": "Identifier",
+                                "name": "b"
+                            }
+                        },
+                        "property": {
+                            "type": "NumericLiteral",
+                            "value": 2
+                        }
+                    }
+                }
+            ]
+        }
+    );
+}
+
 function testChain() {
     let parser = new Parser();
 
@@ -272,6 +416,8 @@ function testChain() {
 function testMember() {
     testDotMember();
     testBracketMember();
+    testNestedMember();
+    testComplexObject();
     testChain();
 
     console.log('testMember() passed.');

@@ -62,6 +62,9 @@ const Spec = [
     [/^\bfor\b/,'for'],         // for
     [/^\bdef\b/,'def'],         // def
     [/^\breturn\b/,'return'],   // return
+    [/^\bclass\b/,'class'],     // class
+    [/^\bextends\b/,'extends'], // extends
+    [/^\bnew\b/,'new'],         // new
 
     [/^\btrue\b/, 'TRUE'],      // true
     [/^\bfalse\b/, 'FALSE'],    // false

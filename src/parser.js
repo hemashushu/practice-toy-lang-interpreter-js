@@ -88,9 +88,43 @@ class Parser {
                 return this.FunctionDeclaration();
             case 'return':
                 return this.ReturnStatement();
+            case 'class':
+                return this.ClassDeclaration();
             default:
                 return this.ExpressionStatement();
         }
+    }
+
+    /**
+     * ClassDeclaration
+     *  : 'class' IDENTIFIER OptionalClassExtends BlockStatement
+     *  ;
+     */
+    ClassDeclaration() {
+        this._consume('class');
+        const id = this.Identifier();
+
+        const superClass = (this._lookahead.type === 'extends') ?
+            this.ClassExtends() : null;
+
+        const body = this.BlockStatement();
+
+        return {
+            type: 'ClassDeclaration',
+            id,
+            superClass,
+            body
+        };
+    }
+
+    /**
+     * ClassExtends
+     *  : 'extends' IDENTIFIER
+     *  ;
+     */
+    ClassExtends() {
+        this._consume('extends');
+        return this.Identifier();
     }
 
     /**
@@ -103,7 +137,8 @@ class Parser {
         const name = this.Identifier();
 
         this._consume('(');
-        const params = this._lookahead.type === ')' ? [] : this.FormalParameterList();
+        const params = this._lookahead.type === ')' ?
+            [] : this.FormalParameterList();
         this._consume(')');
 
         const body = this.BlockStatement();
@@ -406,7 +441,7 @@ class Parser {
 
     /**
      * Expression
-     *  : AdditiveExpression
+     *  : AssignmentExpression
      * ;
      */
     Expression() {
@@ -621,11 +656,90 @@ class Parser {
 
     /**
      * LeftHandSideExpression
-     *  : MemberExpression
+     *  : CallOrMemberExpression
      *  ;
      */
     LeftHandSideExpression() {
-        return this.MemberExpression();
+        return this.CallOrMemberExpression();
+    }
+
+    /**
+     * CallOrMemberExpression
+     *  : MemberExpression
+     *  | CallExpression
+     *  ;
+     */
+    CallOrMemberExpression() {
+        const member = this.MemberExpression();
+
+        if (this._lookahead.type === '(') {
+            return this._CallExpression(member);
+        } else {
+            return member;
+        }
+    }
+
+    /**
+     * CallExpression
+     *  : Callee Arguments
+     *  ;
+     *
+     * Callee
+     *  : MemberExpression
+     *  | CallExpression
+     *  ;
+     */
+    _CallExpression(callee) {
+        let callExpression = {
+            type: 'CallExpression',
+            callee,
+            arguments: this.Arguments()
+        };
+
+        while (this._lookahead.type === '(') {
+            // callExpression = this._CallExpression(callExpression);
+            // .or.
+
+            callExpression = {
+                type: 'CallExpression',
+                callee: callExpression,
+                arguments: this.Arguments()
+            };
+        }
+
+        return callExpression;
+    }
+
+    /**
+     * Arguments
+     *  : '(' OptionalArgumentList ')'
+     *  ;
+     */
+    Arguments() {
+        this._consume('(');
+        const argumentList = this._lookahead.type === ')' ?
+            [] : this.ArgumentList();
+        this._consume(')');
+
+        return argumentList;
+    }
+
+    /**
+     * ArgumentList
+     *  : Expression
+     *  | ArgumentList ',' Expression
+     *  ;
+     */
+    ArgumentList() {
+        let argumentList = [];
+
+        argumentList.push(this.Expression());
+
+        while (this._lookahead.type === ',' && this._consume(',')) {
+            argumentList.push(this.Expression());
+        }
+
+        return argumentList;
     }
 
     /**
@@ -638,8 +752,8 @@ class Parser {
     MemberExpression() {
         let object = this.PrimaryExpression();
 
-        while(this._lookahead.type === '.' || this._lookahead.type === '[') {
-            switch(this._lookahead.type) {
+        while (this._lookahead.type === '.' || this._lookahead.type === '[') {
+            switch (this._lookahead.type) {
                 case '.':
                     {
                         this._consume('.');
@@ -690,6 +804,28 @@ class Parser {
                 return this.ParenthesizedExpression();
             case 'IDENTIFIER':
                 return this.Identifier();
+            case 'new':
+                return this.NewExpression();
+        }
+    }
+
+    /**
+     * NewExpression
+     *  : 'new' MemberExpression Arguments
+     *  ;
+     */
+    NewExpression() {
+        // new 操作符的优先级比 member 要高
+        //
+        // new Foo.bar(1) -> new (Foo.bar)(1)
+        // new Foo(1).bar(2) -> (new Foo(1)).bar(2)
+        // new new Foo(1).bar(2) -> (new (new Foo(1)).bar)(2)
+
+        this._consume('new');
+        return  {
+            type: 'NewExpression',
+            callee: this.MemberExpression(),
+            arguments: this.Arguments()
         }
     }
 
