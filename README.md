@@ -1,4 +1,4 @@
-# (Exercise) Toy Language Interpreter JS
+# (Practice) Toy Language Interpreter - JS
 
 练习 **不使用第三方库** 的情况下单纯使用 JS 编写简单的 _玩具语言_ 解析器。
 
@@ -6,7 +6,7 @@
 
 <!-- code_chunk_output -->
 
-- [(Exercise) Toy Language Interpreter JS](#exercise-toy-language-interpreter-js)
+- [(Practice) Toy Language Interpreter - JS](#practice-toy-language-interpreter-js)
   - [单元测试](#单元测试)
   - [运行指定源代码](#运行指定源代码)
   - [打印指定源代码的 AST](#打印指定源代码的-ast)
@@ -75,9 +75,9 @@ $ node bin/ast.js script.toy
 
 首先安装本项目到全局：
 
-`$ sudo npm install -g ./exercise-interpreter-js`
+`$ sudo npm install -g ./practice-toy-lang-interpreter-js`
 
-其中 `./exercise-interpreter-js` 是本项目源码的目录（可以是相对或绝对路径），如果安装过程停住了，可以按 `Ctrl+C` 中止，实际上已经成功安装。
+其中 `./practice-toy-lang-interpreter-js` 是本项目源码的目录（可以是相对或绝对路径），如果安装过程停住了，可以按 `Ctrl+C` 中止，实际上已经成功安装。
 
 然后就可以在任意文件路径下使用命令 `toy-js` 执行脚本，比如：
 

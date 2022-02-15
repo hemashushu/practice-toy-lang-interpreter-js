@@ -6,8 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-// NOTE::
-// exercise from https://github.com/DmitrySoshnikov/letter-rdp-source
+// source from:
+// https://github.com/DmitrySoshnikov/letter-rdp-source
 
 import { Tokenizer } from './tokenizer.js';
 

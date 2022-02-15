@@ -1,5 +1,5 @@
 {
-    "name": "exercise-interpreter-js",
+    "name": "practice-toy-lang-interpreter-js",
     "version": "1.0.1",
     "description": "",
     "main": "index.js",
@@ -15,7 +15,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/hemashushu/exercise-interpreter-js.git"
+        "url": "git+https://github.com/hemashushu/practice-toy-lang-interpreter-js.git"
     },
     "author": "Hemashushu <hippospark@gmail.com>",
     "keywords": [
@@ -25,7 +25,7 @@
     "dependencies": {},
     "devDependencies": {},
     "bugs": {
-        "url": "https://github.com/hemashushu/exercise-interpreter-js/issues"
+        "url": "https://github.com/hemashushu/practice-toy-lang-interpreter-js/issues"
     },
-    "homepage": "https://github.com/hemashushu/exercise-interpreter-js#readme"
+    "homepage": "https://github.com/hemashushu/practice-toy-lang-interpreter-js#readme"
 }
