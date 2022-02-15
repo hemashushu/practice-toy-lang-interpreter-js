@@ -1,6 +1,6 @@
 # (Exercise) Toy Language Interpreter JS
 
-练习 **不使用任何第三方库** 的情况下单纯使用 JS 编写简单的 _玩具语言_ 解析器。
+练习 **不使用第三方库** 的情况下单纯使用 JS 编写简单的 _玩具语言_ 解析器。
 
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
@@ -19,6 +19,9 @@
     - [列表的实现](#列表的实现)
   - [语法](#语法)
   - [内置函数](#内置函数)
+    - [I/O](#io)
+    - [数学函数](#数学函数)
+  - [内置常数](#内置常数)
 
 <!-- /code_chunk_output -->
 
@@ -289,8 +292,37 @@ $ npm run eval test/script/05-list.py
 
 ## 内置函数
 
+### I/O
+
 * print(s) 打印一个字符串，如果参数 `s` 是数字，则会按字面的值转换为字符串（即，并非按照数字的 ascii 或者 unicode code point 来转换）。函数返回 null。
 * printf(s, [v1, v2, ...]) 打印带格式的字符串，字符串的格式同 JavaScript，如 `string %s, num %d`，第二个参数是一个列表。函数返回 null。
 
 * read_file(file_name) 读取指定的文本文件，返回 String。
 * write_file(file_name, text) 将 String 写入到指定的文件，返回 null。
+
+### 数学函数
+
+* abs(x) 计算绝对值，返回 number
+* ceil(x) 向上取整，返回 number
+* floor(x) 向下取整，返回 number
+* round(x) 四舍五入取整，返回 number
+* trunc(x) 取整，返回 number
+
+* log(x) 计算 log 10(x)，返回 number
+* ln(x) 计算 log e(x)，返回 number
+* pow(x, y) 幂函数，返回 number
+* sqrt(x) 平方根，返回 number
+
+* random() 获取随机数，返回 [0,1)
+
+* sin(x) 正弦，返回 number
+* cos(x) 余弦，返回 number
+* tan(x) 正切，返回 number
+* asin(x) 反正弦，返回 number
+* acos(x) 反余弦，返回 number
+* atan(x) 反正切，返回 number
+
+## 内置常数
+
+* E 自然对数
+* PI 圆周率
