@@ -63,13 +63,24 @@ function testStringLiteral() {
         }]
     });
 
+    assert.deepEqual(parser.parse('"foo bar";'), {
+        type: 'Program',
+        body: [{
+            type: 'ExpressionStatement',
+            expression: {
+                type: 'StringLiteral',
+                value: 'foo bar'
+            }
+        }]
+    });
+
     assert.deepEqual(parser.parse('"foo\\"bar";'), {
         type: 'Program',
         body: [{
             type: 'ExpressionStatement',
             expression: {
                 type: 'StringLiteral',
-                value: 'foo\\"bar'
+                value: 'foo\\"bar' // todo:: escaped char
             }
         }]
     });

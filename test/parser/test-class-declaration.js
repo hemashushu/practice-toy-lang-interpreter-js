@@ -41,12 +41,12 @@ function testSimpleClassDeclaration() {
     assert.deepEqual(parser.parse(
         `
         class Point {
-            def constructor(x,y) {
+            constructor(x,y) {
                 this.x = x;
                 this.y = y;
             }
 
-            def calc() {
+            function calc() {
                 return 2;
             }
         }
@@ -65,11 +65,11 @@ function testSimpleClassDeclaration() {
                         "type": "BlockStatement",
                         "body": [
                             {
-                                "type": "FunctionDeclaration",
-                                "name": {
-                                    "type": "Identifier",
-                                    "name": "constructor"
-                                },
+                                "type": "Constructor",
+                                // "name": {
+                                //     "type": "Identifier",
+                                //     "name": "constructor"
+                                // },
                                 "params": [
                                     {
                                         "type": "Identifier",
@@ -194,11 +194,11 @@ function testInheritedClassDeclaration() {
     assert.deepEqual(parser.parse(
         `
         class Point3D extends Point {
-            def constructor(x,y,z) {
+            constructor(x,y,z) {
                 super(x,y);
             }
 
-            def calc() {
+            function calc() {
                 return super.calc() + 1;
             }
         }
@@ -221,11 +221,11 @@ function testInheritedClassDeclaration() {
                         "type": "BlockStatement",
                         "body": [
                             {
-                                "type": "FunctionDeclaration",
-                                "name": {
-                                    "type": "Identifier",
-                                    "name": "constructor"
-                                },
+                                "type": "Constructor",
+                                // "name": {
+                                //     "type": "Identifier",
+                                //     "name": "constructor"
+                                // },
                                 "params": [
                                     {
                                         "type": "Identifier",

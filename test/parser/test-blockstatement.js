@@ -92,7 +92,6 @@ function testNestedBlockStatements() {
             {
                 123;
             }
-            {}
         }
         `), {
         type: 'Program',
@@ -114,10 +113,6 @@ function testNestedBlockStatements() {
                         value: 123
                     }
                 }]
-            },
-            {
-                type: 'BlockStatement',
-                body: []
             }]
         }]
     });
@@ -128,10 +123,19 @@ function testEmptyStatement() {
 
     assert.deepEqual(parser.parse(
         `
+        123;
         ;
         `), {
         type: 'Program',
         body: [
+            {
+                type: 'ExpressionStatement',
+                expression:
+                {
+                    type: 'NumericLiteral',
+                    value: 123
+                }
+            },
             {
                 type: 'EmptyStatement'
             }

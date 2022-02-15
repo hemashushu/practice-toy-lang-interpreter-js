@@ -1,13 +1,17 @@
 {
     "name": "exercise-interpreter-js",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "",
     "main": "index.js",
     "type": "module",
     "scripts": {
         "test": "node test/test.js",
-        "eval": "node index.js",
-        "devel": "node index.js -- --devel"
+        "ast": "node bin/ast.js",
+        "eval": "node bin/eval.js",
+        "devel": "node bin/devel.js"
+    },
+    "bin": {
+        "toy-js": "./cli.js"
     },
     "repository": {
         "type": "git",

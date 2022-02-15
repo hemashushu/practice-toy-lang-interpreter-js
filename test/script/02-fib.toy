@@ -6,7 +6,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { Evaluator } from './src/evaluator.js';
-import { Parser } from './src/parser.js';
+// 1，1，2，3，5，8，13，21，34，55
 
-export { Evaluator, Parser };
+function fib(n) {
+    if (n==0 || n==1) {
+        1;
+    }else {
+        fib(n-1) + fib(n-2);
+    }
+}
+print(fib(9)); // 55

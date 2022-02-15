@@ -6,7 +6,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { Evaluator } from './src/evaluator.js';
-import { Parser } from './src/parser.js';
+class Num {
+    let val;
 
-export { Evaluator, Parser };
+    constructor(this, x) {
+        this.val = x;
+    }
+
+    function add(this, y) {
+        this.val += y;
+    }
+}
+
+let a = new Num(1);
+let b = new Num(2);
+a.add(3);
+b.add(5);
+print(a.val + b.val);   // 11

@@ -15,7 +15,7 @@ function testFunctionDeclaration() {
 
     assert.deepEqual(parser.parse(
         `
-        def double(x) {
+        function double(x) {
             return x*2;
         }
         `),
@@ -59,7 +59,7 @@ function testFunctionDeclaration() {
 
     assert.deepEqual(parser.parse(
         `
-        def add(m,n) {
+        function add(m,n) {
             return;
         }
         `),
@@ -96,7 +96,7 @@ function testFunctionDeclaration() {
 
     assert.deepEqual(parser.parse(
         `
-        def empty() {
+        function empty() {
             //
         }
         `),

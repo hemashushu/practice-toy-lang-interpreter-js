@@ -7,9 +7,11 @@
  */
 
 import { testParser } from './test-parser.js';
+import { testEvaluator } from './test-evaluator.js';
 
 (() => {
     testParser();
+    testEvaluator();
 
-    console.log('all passed.');
+    console.log('> all passed.');
 })();

@@ -85,8 +85,10 @@ class Parser {
             case 'do':
             case 'for':
                 return this.IterationStatement();
-            case 'def':
+            case 'function':
                 return this.FunctionDeclaration();
+            case 'constructor':
+                return this.ConstructorStatement();
             case 'return':
                 return this.ReturnStatement();
             case 'class':
@@ -130,11 +132,11 @@ class Parser {
 
     /**
      * FunctionDeclaration
-     *  : 'def' IDENTIFIER '(' OptionalFormalParameterList ')' BlockStatement
+     *  : 'function' IDENTIFIER '(' OptionalFormalParameterList ')' BlockStatement
      *  ;
      */
     FunctionDeclaration() {
-        this._consume('def');
+        this._consume('function');
         const name = this.Identifier();
 
         this._consume('(');
@@ -147,6 +149,28 @@ class Parser {
         return {
             type: 'FunctionDeclaration',
             name,
+            params,
+            body
+        };
+    }
+
+    /**
+     * ConstructorStatement
+     *  : 'constructor' '(' OptionalFormalParameterList ')' BlockStatement
+     *  ;
+     */
+    ConstructorStatement() {
+        this._consume('constructor');
+
+        this._consume('(');
+        const params = this._lookahead.type === ')' ?
+            [] : this.FormalParameterList();
+        this._consume(')');
+
+        const body = this.BlockStatement();
+
+        return {
+            type: 'Constructor',
             params,
             body
         };
@@ -457,6 +481,10 @@ class Parser {
      * ;
      */
     Expression() {
+        // 表达式的解析顺序由优先级（precedence）低到高解析
+        // 参考
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
         return this.AssignmentExpression();
     }
 

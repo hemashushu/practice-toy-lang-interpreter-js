@@ -63,7 +63,8 @@ const Spec = [
     [/^\bwhile\b/,'while'],     // while
     [/^\bdo\b/,'do'],           // do
     [/^\bfor\b/,'for'],         // for
-    [/^\bdef\b/,'def'],         // def
+    [/^\bfunction\b/,'function'],         // function
+    [/^\bconstructor\b/,'constructor'],   // constructor
     [/^\breturn\b/,'return'],   // return
     [/^\bclass\b/,'class'],     // class
     [/^\bextends\b/,'extends'], // extends

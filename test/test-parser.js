@@ -30,6 +30,8 @@ import { testList } from './parser/test-list.js';
 import { testMap } from './parser/test-map.js';
 
 function testParser() {
+    console.log('> testing parser...');
+
     testLiteral();
     testWhitespace();
     testComment();
@@ -52,8 +54,6 @@ function testParser() {
     testTuple();
     testList();
     testMap();
-
-    console.log('parser test passed.');
 }
 
 export { testParser };

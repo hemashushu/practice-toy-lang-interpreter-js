@@ -1,0 +1,38 @@
+/**
+ * Copyright (c) 2022 Hemashushu <hippospark@gmail.com>, All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+class Point {
+    let x,y;
+    constructor(this, x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Line {
+    let p1,p2;
+    constructor(this, p1, p2) {
+        this.p1 = p1;
+        this.p2 = p2;
+    }
+
+    function length(this) {
+        sqrt(
+            pow(this.p1.x - this.p2.x,
+                2)
+            +
+            pow(this.p1.y - this.p2.y,
+                2)
+        );
+    }
+}
+
+let p1 = new Point(2,3);
+let p2 = new Point(5,7);
+let n = new Line(p1, p2);
+print(n.length());  // 5

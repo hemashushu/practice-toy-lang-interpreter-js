@@ -6,7 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { Evaluator } from './src/evaluator.js';
-import { Parser } from './src/parser.js';
-
-export { Evaluator, Parser };
+let sum;
+for (let i = 1; i <= 100; i = i + 1) {
+    sum = sum + i;
+}
+print(sum); // 5050

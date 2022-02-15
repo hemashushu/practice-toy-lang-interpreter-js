@@ -11,13 +11,24 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/index.js",
-            "args": ["--devel"]
+            "program": "${workspaceFolder}/bin/eval.js",
+            "args": [
+                "test/script/01-sum.toy"
+            ]
         },
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Launch Unit Tests",
+            "name": "Devel",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/devel.js"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Unit Tests",
             "skipFiles": [
                 "<node_internals>/**"
             ],

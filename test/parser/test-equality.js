@@ -105,7 +105,7 @@ function testComplexEqualityExpression() {
 
     assert.deepEqual(parser.parse(
         `
-        i + 1 == j < 2;
+        i < 1 == j < 2;
         `),
         {
             "type": "Program",
@@ -117,7 +117,7 @@ function testComplexEqualityExpression() {
                         "operator": "==",
                         "left": {
                             "type": "BinaryExpression",
-                            "operator": "+",
+                            "operator": "<",
                             "left": {
                                 "type": "Identifier",
                                 "name": "i"

@@ -177,8 +177,8 @@ function testParenthesizedExpression() {
 
     assert.deepEqual(parser.parse(
         `
-            1+(2+3)+4;
-            `),
+        8*(2+3)+4;
+        `),
         {
             "type": "Program",
             "body": [
@@ -189,10 +189,10 @@ function testParenthesizedExpression() {
                         operator: '+',
                         left: {
                             "type": "BinaryExpression",
-                            "operator": "+",
+                            "operator": "*",
                             "left": {
                                 "type": "NumericLiteral",
-                                "value": 1
+                                "value": 8
                             },
                             "right": {
                                 "type": "BinaryExpression",
