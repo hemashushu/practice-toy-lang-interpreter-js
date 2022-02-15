@@ -1,5 +1,6 @@
 # (Exercise) Toy Language Interpreter JS
 
+练习 **不使用任何第三方库** 的情况下单纯使用 JS 编写简单的 _玩具语言_ 解析器。
 
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
@@ -20,9 +21,6 @@
   - [内置函数](#内置函数)
 
 <!-- /code_chunk_output -->
-
-
-练习 **不使用任何第三方库** 的情况下单纯使用 JS 编写简单的 _玩具语言_ 解析器。
 
 ## 单元测试
 
