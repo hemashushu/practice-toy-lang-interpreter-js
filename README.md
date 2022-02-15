@@ -1,5 +1,27 @@
 # (Exercise) Toy Language Interpreter JS
 
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [(Exercise) Toy Language Interpreter JS](#exercise-toy-language-interpreter-js)
+  - [单元测试](#单元测试)
+  - [运行指定源代码](#运行指定源代码)
+  - [打印指定源代码的 AST](#打印指定源代码的-ast)
+  - [安装 CLI 程序](#安装-cli-程序)
+  - [程序示例](#程序示例)
+    - [一般函数的调用](#一般函数的调用)
+    - [函数的递归调用](#函数的递归调用)
+    - [类与对象](#类与对象)
+    - [类的组合](#类的组合)
+    - [列表的实现](#列表的实现)
+  - [语法](#语法)
+  - [内置函数](#内置函数)
+
+<!-- /code_chunk_output -->
+
+
 练习 **不使用任何第三方库** 的情况下单纯使用 JS 编写简单的 _玩具语言_ 解析器。
 
 ## 单元测试
