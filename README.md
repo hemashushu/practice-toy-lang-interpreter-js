@@ -1,7 +1,5 @@
 # (Practice) Toy Language Interpreter - JS
 
-练习 **不使用第三方库** 的情况下单纯使用 JS 编写简单的 _玩具语言_ 解析器。
-
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
 <!-- code_chunk_output -->
@@ -24,6 +22,11 @@
   - [内置常数](#内置常数)
 
 <!-- /code_chunk_output -->
+
+练习单纯使用 JS 编写简单的 _玩具语言_ 解析器。
+
+> 注：本项目是阅读和学习《Building a Parser from scratch》时的随手练习，并无实际用途。程序的原理、讲解和代码的原始出处请移步 http://dmitrysoshnikov.com/courses/parser-from-scratch/
+
 
 ## 单元测试
 

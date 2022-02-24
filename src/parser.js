@@ -1,16 +1,38 @@
-/**
- * Copyright (c) 2022 Hemashushu <hippospark@gmail.com>, All rights reserved.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-
-// source from:
-// https://github.com/DmitrySoshnikov/letter-rdp-source
+// original from https://github.com/DmitrySoshnikov/letter-rdp-source
 
 import { Tokenizer } from './tokenizer.js';
 
+/**
+ * 解析的顺序按照各种 "语言元素（即语句、表达式等）" 的优先级来进行。
+ *
+ * 1. 先解析各种 "语句"，比如变量声明语句，函数定义语句等，
+ *    语句之间是并排关系，没有优先级之分。
+ * 2. "语句" 当中有 "表达式语句" 一类
+ * 3. 解析 "表达式语句" 当中的 "表达式"
+ *    a. 赋值表达式（假如语言允许连续赋值）
+ *    b. 逻辑 or
+ *    c. 逻辑 and
+ *    d. 相等比较（==, !=）
+ *    e. 大小比较（>, <, >=, <=）
+ *	  f. 加减（+, -）
+ *    g. 乘除（*, /）
+ *
+ *    (以上是二元运算/表达式，以下可以视为是一元运算/表达式)
+ *
+ *    h. 一元运算（正负数，逻辑非）
+ *	  i. 对象成员或者函数调用（obj.prop, obj[index], func(...)）
+ *    j. 基础表达式
+ *
+ *    基础表达式包括字面量（包括元组、列表、字典等字面量）、括号、标识符、new 表达式
+ *    基础表达式单独出现，所以没有先后顺序。
+ *    括号、元组、列表、字典当中允许任何 "表达式"，所以又会回到第 3 步。
+ *
+ *    注意如果语言支持 new 表达式的话：
+ *    new (...) 表达式的优先级要比成员表达式的高，
+ *    即 `new a(...).c(...)` 是 `(new a(...)).c(...)`
+ *    new ... 表达式跟成员表达式一样，
+ *    即 `new a.b.c(...)` 是 `new (a.b.c)()`
+ */
 class Parser {
     constructor() {
         this._string = '';
@@ -627,7 +649,7 @@ class Parser {
                 right
             };
 
-            // right associative
+            // left-to-right associative
             left = node;
         }
 
@@ -657,7 +679,7 @@ class Parser {
                 right
             };
 
-            // right associative
+            // left-to-right associative
             left = node;
         }
 
@@ -832,6 +854,8 @@ class Parser {
      *  : Literal
      *  | ParenthesizedExpression
      *  | Tuple
+     *  | List
+     *  | Map
      *  | Identifier
      *  | NewExpression
      *  ;
