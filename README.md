@@ -126,18 +126,20 @@ $ npm run eval test/script/01-sum.toy
 
 ### 函数的递归调用
 
-计算斐波那契数列（Fibonacci sequence）第 9 个数：
+计算斐波那契数列（Fibonacci sequence）（即：0、1、1、2、3、5、8、13、21、34、55...）第 9 个（从 0 开始）数：
 
 ```js
 function fib(n) {
-    if (n==0 || n==1) {
+    if (n==0) {
+        0;
+    }else if(n==1) {
         1;
     }else {
         fib(n-1) + fib(n-2);
     }
 }
 
-print(fib(9)); // 55
+print(fib(9)); // 34
 ```
 
 运行：
