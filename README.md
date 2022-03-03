@@ -6,8 +6,8 @@
 
 - [(Practice) Toy Language Interpreter - JS](#practice-toy-language-interpreter-js)
   - [单元测试](#单元测试)
-  - [运行指定源代码](#运行指定源代码)
-  - [打印指定源代码的 AST](#打印指定源代码的-ast)
+  - [运行指定脚本文件](#运行指定脚本文件)
+  - [打印指定脚本的 AST](#打印指定脚本的-ast)
   - [安装 CLI 程序](#安装-cli-程序)
   - [程序示例](#程序示例)
     - [一般函数的调用](#一般函数的调用)
@@ -30,7 +30,6 @@
 
 > 注：本项目是阅读和学习《Building a Parser from scratch》时的随手练习，并无实际用途。程序的原理、讲解和代码的原始出处请移步 http://dmitrysoshnikov.com/courses/parser-from-scratch/
 
-
 ## 单元测试
 
 ```bash
@@ -43,7 +42,7 @@ $ npm test
 $ node test/test.js
 ```
 
-## 运行指定源代码
+## 运行指定脚本文件
 
 ```bash
 $ npm run eval script.toy
@@ -63,7 +62,7 @@ $ npm run eval test/script/01-sum.toy
 
 如无意外，应该能看到输出 `5050`。
 
-## 打印指定源代码的 AST
+## 打印指定脚本的 AST
 
 ```bash
 $ npm run ast script.toy
